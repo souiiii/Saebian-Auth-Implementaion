@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HomePage</title>
+  </head>
+  <body>
+    <h1>Saebian</h1>
+    <% if(!locals.id) { %>
+    <form method="post" action="/saebian">
+      <label>
+        <p>Enter link</p>
+        <input name="url" type="text" />
+      </label>
+      <button type="submit">Make Saebian</button>
+    </form>
+    <% } else { %>
+    <span>Link: </span>
+    <a target="_blank" href="/saebian/<%= locals.id %>">
+      http://localhost:8001/saebian/<%= locals.id %>
+    </a>
+    <% } %> <% if (locals.all) { %>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>URL</th>
+            <th>Link</th>
+            <th>Clicks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% locals.all.forEach((a)=> { %>
+          <tr>
+            <td><%= a.shortId %></td>
+            <td><%= a.redirectUrl %></td>
+            <td>http://localhost:8001/saebian/<%=a.shortId %></td>
+            <td><%= a.visitHistory.length %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% } %>
+  </body>
+</html>
