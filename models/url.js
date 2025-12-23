@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const urlSchema = new mongoose.Schema(
   {
@@ -10,6 +10,10 @@ const urlSchema = new mongoose.Schema(
     redirectUrl: {
       type: String,
       required: true,
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
     },
     visitHistory: [
       {
