@@ -1,8 +1,11 @@
 import express from "express";
 import path from "path";
+import dotenv from "dotenv";
 import urlRoute from "./routes/url.js";
 import staticRoute from "./routes/staticRouter.js";
 import userRoute from "./routes/user.js";
+
+dotenv.config();
 
 import m from "./connection.js";
 import cookieParser from "cookie-parser";
