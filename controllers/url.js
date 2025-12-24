@@ -11,6 +11,7 @@ export async function generateUrlShortner(req, res) {
       shortId: newId,
       redirectUrl: url,
       visitHistory: [],
+      createdBy: req.user._id,
     });
     // return res.status(201).json({
     //   url: `http://localhost:8001/saebian/${newId}`,
@@ -23,13 +24,13 @@ export async function generateUrlShortner(req, res) {
 
 export async function redirectFunc(req, res) {
   const id = req.params.id;
-  console.log(id);
+  // console.log(id);
   const url = await URL.findOneAndUpdate(
     { shortId: id },
     { $push: { visitHistory: { timestamp: Date.now() } } },
     { new: true }
   );
-  console.log(url);
+  // console.log(url);
   if (!url) return res.status(400).json({ error: "No such url found" });
   const reUrl = url.redirectUrl;
   const target =
