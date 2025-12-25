@@ -1,14 +1,20 @@
 // const sessionIdToUserMap = new Map();
 import jwt from "jsonwebtoken";
-const secret = process.env.secretKey;
 
-export function setUser(id, user) {
+export function setUser(user) {
   // sessionIdToUserMap.set(id, user);
-  const payload = { id, ...user };
-  return jwt.sign(payload);
+  const secret = process.env.secretKey;
+  if (!secret) console.log("JWT SECRET:", secret);
+  return jwt.sign(user, secret);
 }
 
-export function getUser(id) {
+export function getUser(token) {
   // console.log(sessionIdToUserMap);
-  return sessionIdToUserMap.get(id);
+  const secret = process.env.secretKey;
+
+  try {
+    return jwt.verify(token, secret);
+  } catch {
+    return null;
+  }
 }

@@ -18,9 +18,8 @@ export async function loginUser(req, res) {
   if (!use)
     return res.render("login", { error: "invalid username or password" });
 
-  const sessionId = uuidv4();
-  setUser(sessionId, use);
-  res.cookie("uid", sessionId);
+  const token = setUser(use.toObject());
+  res.cookie("uid", token);
   return res.status(200).redirect("/");
 }
 
