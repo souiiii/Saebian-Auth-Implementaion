@@ -8,7 +8,7 @@ import userRoute from "./routes/user.js";
 
 import m from "./connection.js";
 import cookieParser from "cookie-parser";
-import { restrictToLoggedInUserOnly, checkAuth } from "./middlewares/auth.js";
+import { checkforAuthentication, restrictTo } from "./middlewares/auth.js";
 
 m("mongodb://127.0.0.1:27017/saebian")
   .then(() => console.log("database connected"))
@@ -23,9 +23,10 @@ app.set("views", path.resolve("./views"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(checkforAuthentication);
 
-app.use("/saebian", restrictToLoggedInUserOnly, urlRoute);
-app.use("/", checkAuth, staticRoute);
+app.use("/saebian", restrictTo(["NORMAL", "ADMIN"]), urlRoute);
+app.use("/", staticRoute);
 app.use("/user", userRoute);
 
 app.listen(PORT, () => console.log("Server started"));

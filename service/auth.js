@@ -5,7 +5,8 @@ export function setUser(user) {
   // sessionIdToUserMap.set(id, user);
   const secret = process.env.secretKey;
   if (!secret) console.log("JWT SECRET:", secret);
-  return jwt.sign(user, secret);
+  const token = { _id: user._id, email: user.email, role: user.role };
+  return jwt.sign(token, secret);
 }
 
 export function getUser(token) {

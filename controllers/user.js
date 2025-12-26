@@ -3,9 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 import { setUser } from "../service/auth.js";
 
 export async function signupUser(req, res) {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
 
-  await user.create({ name, email, password });
+  await user.create({ name, email, password, role });
   return res.redirect("/");
 }
 
@@ -21,6 +21,7 @@ export async function loginUser(req, res) {
   const token = setUser(use.toObject());
   res.cookie("uid", token);
   return res.status(200).redirect("/");
+  // return res.json({ token });
 }
 
 export async function loginPage(req, res) {}

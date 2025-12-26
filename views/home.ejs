@@ -29,6 +29,9 @@
             <th>URL</th>
             <th>Link</th>
             <th>Clicks</th>
+            <% if(locals.role === 'ADMIN') { %>
+            <th>User</th>
+            <% } %>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +41,9 @@
             <td><%= a.redirectUrl %></td>
             <td>http://localhost:8001/saebian/<%=a.shortId %></td>
             <td><%= a.visitHistory.length %></td>
+            <% if(locals.role === 'ADMIN') { %>
+            <td><%= a.createdBy.name %></td>
+            <% } %>
           </tr>
           <% }) %>
         </tbody>
