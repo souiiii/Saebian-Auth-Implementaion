@@ -11,7 +11,7 @@ router.get("/", restrictTo(["NORMAL", "ADMIN"]), async (req, res) => {
   return res.render("home", { all: all });
 });
 
-router.get("/admin", restrictTo("ADMIN"), async (req, res) => {
+router.get("/admin", restrictTo(["ADMIN"]), async (req, res) => {
   const all = await URL.find({}).populate("createdBy");
   return res.render("home", { all: all, role: "ADMIN" });
 });
